@@ -1,34 +1,41 @@
 function validateAndCalculate() {
     let buyRateInput = document.getElementById("buyRate");
     let sellRateInput = document.getElementById("sellRate");
-    let pencilQuantityInput = document.getElementById("pencilQuantity");
+    let quantityInput = document.getElementById("quantity");
+    let buyRateError = document.getElementById("buyRateError");
+    let sellRateError = document.getElementById("sellRateError");
+    let quantityError = document.getElementById("quantityError");
 
     // Validate buy rate
     if (!buyRateInput.checkValidity() || isNaN(parseFloat(buyRateInput.value))) {
-        alert("Please enter a valid buy rate.");
+        buyRateError.innerText = "Please enter a valid buy rate.";
         return;
     }
 
     // Validate sell rate
     if (!sellRateInput.checkValidity() || isNaN(parseFloat(sellRateInput.value))) {
-        alert("Please enter a valid sell rate.");
+        sellRateError.innerText = "Please enter a valid sell rate.";
         return;
     }
 
     // Validate pencil quantity
-    if (!pencilQuantityInput.checkValidity() || isNaN(parseFloat(pencilQuantityInput.value) <= 0)) {
-        alert("Please enter a valid pencil quantity.");
+    if (!quantityInput.checkValidity() || isNaN(parseFloat(quantityInput.value) <= 0)) {
+        quantityError.innerText = "Please enter a valid pencil quantity.";
         return;
     }
 
+    // Clear all error messages
+    buyRateError.innerText = "";
+    sellRateError.innerText = "";
+    quantityError.innerText = "";
     // If all inputs are valid, proceed with calculation
     calculate();
 }
-function calculateTotalEarnings(buyRate, sellRate, pencilQuantity) {
+function calculateTotalEarnings(buyRate, sellRate, quantity) {
 
     // Calculate profit from pencils
     let pencilProfitPerUnit = sellRate - buyRate;
-    let totalPencilProfit = pencilProfitPerUnit * pencilQuantity;
+    let totalPencilProfit = pencilProfitPerUnit * quantity;
     // Calculate total earnings including pencil
     let totalEarnings = totalPencilProfit;
     return totalEarnings.toFixed(2); // Return total earnings rounded to 2 decimal places
@@ -43,13 +50,23 @@ function calculateTotalProfitPercentage(buyRate, sellRate) {
 function calculate() {
 let buyRate = parseFloat(document.getElementById("buyRate").value);
 let sellRate = parseFloat(document.getElementById("sellRate").value);
-let pencilQuantity = parseInt(document.getElementById("pencilQuantity").value);
+let quantity = parseInt(document.getElementById("quantity").value);
 
 
-let totalEarnings = calculateTotalEarnings(buyRate, sellRate, pencilQuantity);
+let totalEarnings = calculateTotalEarnings(buyRate, sellRate, quantity);
 let profitPercentage = calculateTotalProfitPercentage(buyRate, sellRate);
 // Display results
 document.getElementById("totalEarnings").innerText = totalEarnings;
 document.getElementById("totalProfitPercentage").innerText = profitPercentage + "%";
 
+}
+function reset() {
+    document.getElementById("buyRate").value = "";
+    document.getElementById("sellRate").value = "";
+    document.getElementById("quantity").value = "";
+    document.getElementById("totalEarnings").innerText = "";
+    document.getElementById("totalProfitPercentage").innerText = "";
+    document.getElementById("buyRateError").innerText = "";
+    document.getElementById("sellRateError").innerText = "";
+    document.getElementById("quantityError").innerText = "";
 }
