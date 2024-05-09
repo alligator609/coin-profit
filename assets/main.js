@@ -19,7 +19,7 @@ function validateAndCalculate() {
     }
 
     // Validate pencil quantity
-    if (!quantityInput.checkValidity() || isNaN(parseFloat(quantityInput.value) <= 0)) {
+    if (!quantityInput.checkValidity() || isNaN(parseFloat(quantityInput.value))) {
         quantityError.innerText = "Please enter a valid pencil quantity.";
         return;
     }
@@ -50,7 +50,7 @@ function calculateTotalProfitPercentage(buyRate, sellRate) {
 function calculate() {
 let buyRate = parseFloat(document.getElementById("buyRate").value);
 let sellRate = parseFloat(document.getElementById("sellRate").value);
-let quantity = parseInt(document.getElementById("quantity").value);
+let quantity = parseFloat(document.getElementById("quantity").value);
 
 
 let totalEarnings = calculateTotalEarnings(buyRate, sellRate, quantity);
