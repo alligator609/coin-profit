@@ -1,7 +1,22 @@
+function handleCheck(myRadio) {
+    if (myRadio.value === "sellRateField") {
+        // Disable percentage field and enable sell rate field
+        document.getElementById("sellRate").disabled = false;
+        document.getElementById("percentage").disabled = true;
+    } else {
+        // Disable sell rate field and enable percentage field
+        document.getElementById("sellRate").disabled = true;
+        document.getElementById("percentage").disabled = false;
+    }
+}
+
+
+
 function validateAndCalculate() {
     let buyRateInput = document.getElementById("buyRate");
     let sellRateInput = document.getElementById("sellRate");
     let quantityInput = document.getElementById("quantity");
+    let percentageInput = document.getElementById("percentage");
     let buyRateError = document.getElementById("buyRateError");
     let sellRateError = document.getElementById("sellRateError");
     let quantityError = document.getElementById("quantityError");
@@ -13,7 +28,7 @@ function validateAndCalculate() {
     }
 
     // Validate sell rate
-    if (!sellRateInput.checkValidity() || isNaN(parseFloat(sellRateInput.value))) {
+    if ((!sellRateInput.checkValidity() || isNaN(parseFloat(sellRateInput.value))) && sellRateInput.disabled === false) {
         sellRateError.innerText = "Please enter a valid sell rate.";
         return;
     }
@@ -21,6 +36,11 @@ function validateAndCalculate() {
     // Validate pencil quantity
     if (!quantityInput.checkValidity() || isNaN(parseFloat(quantityInput.value))) {
         quantityError.innerText = "Please enter a valid pencil quantity.";
+        return;
+    }
+     
+    if ((!percentageInput.checkValidity() || isNaN(parseFloat(percentageInput.value))) && percentageInput.disabled === false) {
+        sellRateError.innerText = "Please enter a valid sell rate.";
         return;
     }
 
@@ -51,21 +71,29 @@ function calculate() {
 let buyRate = parseFloat(document.getElementById("buyRate").value);
 let sellRate = parseFloat(document.getElementById("sellRate").value);
 let quantity = parseFloat(document.getElementById("quantity").value);
+let percentage = parseFloat(document.getElementById("percentage").value);
 
-
+if (document.getElementById("sellRate").disabled === false) {
 let totalEarnings = calculateTotalEarnings(buyRate, sellRate, quantity);
 let profitPercentage = calculateTotalProfitPercentage(buyRate, sellRate);
-// Display results
+
 document.getElementById("totalEarnings").innerText = totalEarnings;
-document.getElementById("totalProfitPercentage").innerText = profitPercentage + "%";
+document.getElementById("percentage").value = profitPercentage;
+}
+else {
+let sell = buyRate + (buyRate * percentage / 100);
+let totalEarnings = calculateTotalEarnings(buyRate, sell, quantity);
+ document.getElementById("totalEarnings").innerText = totalEarnings;
+document.getElementById("sellRate").value = sell;
+}
 
 }
 function reset() {
     document.getElementById("buyRate").value = "";
     document.getElementById("sellRate").value = "";
     document.getElementById("quantity").value = "";
+    document.getElementById("percentage").value = "";
     document.getElementById("totalEarnings").innerText = "";
-    document.getElementById("totalProfitPercentage").innerText = "";
     document.getElementById("buyRateError").innerText = "";
     document.getElementById("sellRateError").innerText = "";
     document.getElementById("quantityError").innerText = "";

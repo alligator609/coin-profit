@@ -11,27 +11,38 @@
 
 <h2>Coin Profit Calculator</h2>
 <form id="profitForm">
+    <div class="radio-group" id="takeFieldId"> <!-- Corrected id -->
+        <label for="age">Take Field:</label>
+        <input type="radio" id="sellRateField" name="takeField" value="sellRateField" checked onclick="handleCheck(this);">
+        <label for="sellRateField">Sell Rate</label>
+        <input type="radio" id="percentageField" name="takeField" value="percentageField" onclick="handleCheck(this);">
+        <label for="percentageField">Percentage</label>
+    </div>    
     <div class="form-group">
         <label for="buyRate">Buy Rate:</label>
-        <input type="number" id="buyRate" name="buyRate" step="any" required><br><br>
+        <input type="number" id="buyRate" name="buyRate" step="any" required>
         <span class="error-message" id="buyRateError"></span>
     </div>
     <div class="form-group">
         <label for="sellRate">Sell Rate:</label>
-        <input type="number" id="sellRate" name="sellRate" step="any" required><br><br>
-        <span class="error-message" id="sellRateError"></span><br>
+        <input type="number" id="sellRate" name="sellRate" step="any" >
+        <span class="error-message" id="sellRateError"></span>
+    </div>
+    <div class="form-group">
+        <label for="percentage">Percentage(%):</label>
+        <input type="number" id="percentage" name="percentage" step="any" disabled>
+        <span class="error-message" id="percentageError"></span>
     </div>
     <div class="form-group"> 
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" step="any" required><br><br>
-        <span class="error-message" id="quantityError"></span><br>
+        <input type="number" id="quantity" name="quantity" value="1" step="any" required>
+        <span class="error-message" id="quantityError"></span>
     </div>
     <button type="button" class="btn-submit" onclick="validateAndCalculate()">Calculate</button>
-    <button type="reset" class="btn-reset" onabort="reset()">Reset</button>
+    <button type="reset" class="btn-reset" onclick="reset()">Reset</button>
 </form>
 <div class="result">
     <p>Total Earnings($): <span id="totalEarnings" style="font-size: 24px;"></span></p>
-    <p>Total Profit (%): <span id="totalProfitPercentage" style="font-size: 24px;"></span></p>
 </div>
 </body>
 </html>
