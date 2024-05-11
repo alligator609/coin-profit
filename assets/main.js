@@ -58,13 +58,13 @@ function calculateTotalEarnings(buyRate, sellRate, quantity) {
     let totalPencilProfit = pencilProfitPerUnit * quantity;
     // Calculate total earnings including pencil
     let totalEarnings = totalPencilProfit;
-    return totalEarnings.toFixed(2); // Return total earnings rounded to 2 decimal places
+    return totalEarnings.toFixed(4); // Return total earnings rounded to 2 decimal places
 }
 
 function calculateTotalProfitPercentage(buyRate, sellRate) {
     // Calculate profit percentage
     let profitPercentage = ((sellRate - buyRate) / buyRate) * 100;
-    return profitPercentage.toFixed(2); // Return profit percentage rounded to 2 decimal places
+    return profitPercentage.toFixed(4); // Return profit percentage rounded to 2 decimal places
 }
 
 function calculate() {
